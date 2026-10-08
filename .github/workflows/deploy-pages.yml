@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -37,3 +37,11 @@ jobs:
       - name: Deploy website
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Record deployment result
+        if: always()
+        env:
+          DEPLOYMENT_RESULT: ${{ steps.deployment.outcome }}
+        run: |
+          git tag "pages-${DEPLOYMENT_RESULT}-${GITHUB_RUN_ID}"
+          git push origin "pages-${DEPLOYMENT_RESULT}-${GITHUB_RUN_ID}"
