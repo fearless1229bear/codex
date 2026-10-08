@@ -25,11 +25,13 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Configure GitHub Pages
+        id: configuration
         uses: actions/configure-pages@v5
         with:
           enablement: true
 
       - name: Upload website
+        id: upload
         uses: actions/upload-pages-artifact@v3
         with:
           path: .
@@ -41,7 +43,10 @@ jobs:
       - name: Record deployment result
         if: always()
         env:
+          CONFIGURATION_RESULT: ${{ steps.configuration.outcome }}
+          UPLOAD_RESULT: ${{ steps.upload.outcome }}
           DEPLOYMENT_RESULT: ${{ steps.deployment.outcome }}
         run: |
-          git tag "pages-${DEPLOYMENT_RESULT}-${GITHUB_RUN_ID}"
-          git push origin "pages-${DEPLOYMENT_RESULT}-${GITHUB_RUN_ID}"
+          STATUS_TAG="pages-${CONFIGURATION_RESULT}-${UPLOAD_RESULT}-${DEPLOYMENT_RESULT}-${GITHUB_RUN_ID}"
+          git tag "${STATUS_TAG}"
+          git push origin "${STATUS_TAG}"
