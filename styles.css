@@ -70,12 +70,20 @@ button { color: inherit; }
   content: "";
 }
 
-.brand {
+.panel-topbar {
   position: relative;
   z-index: 1;
   display: flex;
   align-items: center;
-  gap: 12px;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.brand {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 10px;
   font-weight: 700;
   letter-spacing: .04em;
 }
@@ -98,6 +106,71 @@ button { color: inherit; }
   stroke-linejoin: round;
   stroke-width: 2.4;
 }
+
+.login-button,
+.user-account {
+  display: flex;
+  min-width: 0;
+  flex: none;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 9px;
+  border: 1px solid rgba(255,255,255,.2);
+  border-radius: 11px;
+  color: white;
+  background: rgba(255,255,255,.1);
+  font-size: .7rem;
+}
+
+.login-button {
+  cursor: pointer;
+  transition: background 150ms ease, border-color 150ms ease;
+}
+
+.login-button:hover,
+.login-button:focus-visible { border-color: rgba(255,255,255,.36); background: rgba(255,255,255,.16); }
+.login-button:disabled { cursor: wait; opacity: .62; }
+
+.google-mark {
+  display: grid;
+  width: 19px;
+  height: 19px;
+  place-items: center;
+  border-radius: 50%;
+  color: #4285f4;
+  background: white;
+  font-size: .68rem;
+  font-weight: 800;
+}
+
+.user-account[hidden] { display: none; }
+
+.user-account img {
+  width: 24px;
+  height: 24px;
+  flex: none;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.user-account > span {
+  max-width: 84px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.logout-button {
+  padding: 3px 5px;
+  border: 0;
+  border-radius: 6px;
+  color: rgba(255,255,255,.72);
+  background: transparent;
+  cursor: pointer;
+  font-size: .66rem;
+}
+
+.logout-button:hover { color: white; background: rgba(255,255,255,.11); }
 
 .calendar-copy {
   position: relative;
@@ -282,6 +355,18 @@ h1 em { color: var(--gold); font-style: normal; }
 }
 
 .progress-card strong { font-size: .9rem; }
+
+.sync-status {
+  display: block;
+  max-width: 280px;
+  margin-top: 5px;
+  color: rgba(255,255,255,.52);
+  font-size: .64rem;
+  line-height: 1.4;
+}
+
+.sync-status[data-state="synced"] { color: #bfe1ca; }
+.sync-status[data-state="error"] { color: #ffd19f; }
 
 .progress-ring {
   position: relative;
@@ -732,6 +817,7 @@ h1 em { color: var(--gold); font-style: normal; }
 @media (max-width: 560px) {
   .page-shell { width: 100%; margin: 0; border: 0; border-radius: 0; }
   .calendar-panel { padding: 28px 20px; }
+  .user-account > span { max-width: 56px; }
   .calendar-copy { margin-top: 12px; }
   h1 { font-size: 2.45rem; }
   .calendar-card { padding: 14px 10px; }
