@@ -658,6 +658,68 @@ h1 em { color: var(--gold); font-style: normal; }
   from { opacity: 0; transform: translateY(-8px); }
 }
 
+@media (min-width: 921px) {
+  body {
+    display: grid;
+    height: 100vh;
+    min-height: 0;
+    place-items: center;
+    overflow: hidden;
+  }
+
+  .page-shell {
+    height: min(940px, calc(100vh - 24px));
+    min-height: 0;
+    margin: 0 auto;
+  }
+
+  .calendar-panel {
+    gap: clamp(12px, 2vh, 22px);
+    padding: clamp(22px, 3.2vh, 34px);
+  }
+
+  .calendar-copy { flex: none; }
+  .calendar-copy h1 { font-size: clamp(2.2rem, 5.8vh, 3.25rem); }
+  .intro { margin-top: 12px; line-height: 1.6; }
+  .calendar-card { padding: clamp(12px, 1.8vh, 16px); }
+  .calendar-header { margin-bottom: 8px; }
+  .calendar-day { height: clamp(31px, 4.15vh, 39px); }
+  .calendar-footer { margin-top: 8px; padding-top: 8px; }
+  .progress-card { padding: 13px 16px; }
+  .progress-ring { width: 48px; height: 48px; }
+  .progress-ring::before { width: 37px; height: 37px; }
+
+  .task-panel {
+    height: 100%;
+    padding: clamp(24px, 3.8vh, 38px) 44px;
+    overflow: hidden;
+  }
+
+  .day-header { margin-bottom: clamp(14px, 2vh, 20px); }
+  .task-form { padding: 16px 18px; }
+  .form-heading { margin-bottom: 10px; }
+  .task-form label { margin: 9px 0 5px; }
+  .task-form input { padding: 9px 12px; }
+  .task-form textarea { min-height: clamp(68px, 9vh, 84px); padding: 9px 12px; }
+  .form-actions { margin-top: 11px; }
+  .submit-button,
+  .cancel-button { padding: 9px 14px; }
+  .toolbar { margin: 18px 0 20px; }
+  .task-form[hidden] + .toolbar { margin-top: 0; }
+  .list-heading { padding-bottom: 10px; }
+
+  .task-list {
+    min-height: 0;
+    padding-top: 14px;
+    overflow-y: auto;
+    scrollbar-color: #d7d8d2 transparent;
+    scrollbar-width: thin;
+  }
+
+  .task-item { padding: 13px 14px; }
+  .empty-state { padding-top: clamp(35px, 8vh, 70px); }
+}
+
 @media (max-width: 920px) {
   .page-shell { grid-template-columns: 1fr; width: min(720px, calc(100% - 32px)); margin: 20px auto; }
   .calendar-panel { padding: 34px; }
