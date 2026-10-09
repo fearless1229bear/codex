@@ -10,6 +10,8 @@ const elements = {
   selectedDate: document.querySelector("#selectedDate"),
   dayKicker: document.querySelector("#dayKicker"),
   dateBadge: document.querySelector("#dateBadge"),
+  openTaskForm: document.querySelector("#openTaskForm"),
+  closeTaskForm: document.querySelector("#closeTaskForm"),
   form: document.querySelector("#taskForm"),
   formHeading: document.querySelector("#formHeading"),
   titleInput: document.querySelector("#taskTitle"),
@@ -267,7 +269,7 @@ function render() {
 function selectDate(dateKey) {
   selectedDateKey = dateKey;
   viewedMonth = startOfMonth(keyToDate(dateKey));
-  resetForm();
+  closeForm();
   render();
 }
 
@@ -275,7 +277,7 @@ function changeMonth(offset) {
   const nextMonth = new Date(viewedMonth.getFullYear(), viewedMonth.getMonth() + offset, 1);
   viewedMonth = nextMonth;
   selectedDateKey = dateToKey(nextMonth);
-  resetForm();
+  closeForm();
   render();
 }
 
@@ -291,6 +293,7 @@ function beginEdit(id) {
   const task = tasks.find((item) => item.id === id);
   if (!task) return;
 
+  openForm();
   editingTaskId = id;
   elements.titleInput.value = task.title;
   elements.detailsInput.value = task.details;
@@ -302,6 +305,12 @@ function beginEdit(id) {
   elements.titleInput.focus({ preventScroll: true });
 }
 
+function openForm() {
+  elements.form.hidden = false;
+  elements.openTaskForm.hidden = true;
+  elements.openTaskForm.setAttribute("aria-expanded", "true");
+}
+
 function resetForm() {
   editingTaskId = null;
   elements.form.reset();
@@ -311,9 +320,16 @@ function resetForm() {
   elements.form.classList.remove("editing");
 }
 
+function closeForm() {
+  resetForm();
+  elements.form.hidden = true;
+  elements.openTaskForm.hidden = false;
+  elements.openTaskForm.setAttribute("aria-expanded", "false");
+}
+
 function deleteTask(id) {
   tasks = tasks.filter((task) => task.id !== id);
-  if (editingTaskId === id) resetForm();
+  if (editingTaskId === id) closeForm();
   saveTasks();
   render();
 }
@@ -342,14 +358,25 @@ elements.form.addEventListener("submit", (event) => {
   }
 
   saveTasks();
-  resetForm();
+  closeForm();
   render();
-  elements.titleInput.focus();
+  elements.openTaskForm.focus();
 });
 
 elements.cancelEdit.addEventListener("click", () => {
+  closeForm();
+  elements.openTaskForm.focus();
+});
+
+elements.openTaskForm.addEventListener("click", () => {
   resetForm();
+  openForm();
   elements.titleInput.focus();
+});
+
+elements.closeTaskForm.addEventListener("click", () => {
+  closeForm();
+  elements.openTaskForm.focus();
 });
 
 elements.filters.forEach((button) => {

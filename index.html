@@ -58,13 +58,20 @@
             <p class="day-kicker" id="dayKicker">今天</p>
             <h2 id="selectedDate">10月9日 星期五</h2>
           </div>
-          <span class="date-badge" id="dateBadge">今天</span>
+          <div class="day-actions">
+            <span class="date-badge" id="dateBadge">今天</span>
+            <button class="add-task-button" id="openTaskForm" type="button"
+              aria-controls="taskForm" aria-expanded="false">＋ 添加任务</button>
+          </div>
         </header>
 
-        <form class="task-form" id="taskForm">
+        <form class="task-form" id="taskForm" hidden>
           <div class="form-heading">
-            <span class="input-icon" aria-hidden="true">＋</span>
-            <strong id="formHeading">添加任务</strong>
+            <div>
+              <span class="input-icon" aria-hidden="true">＋</span>
+              <strong id="formHeading">添加任务</strong>
+            </div>
+            <button class="close-form-button" id="closeTaskForm" type="button" aria-label="收起添加任务表单">×</button>
           </div>
           <label for="taskTitle">任务标题</label>
           <input id="taskTitle" name="title" type="text" maxlength="100"
