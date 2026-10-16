@@ -30,7 +30,7 @@ jobs:
       - name: Upload website
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: .empty-site
 
       - name: Deploy website
         id: deployment
